@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WebTorrent Player</title>
+</head>
+<body>
+  <h2>Vídeo via P2P</h2>
+  <video id="videoPlayer" controls width="640" height="360"></video>
+
+  <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
+  <script>
+    const client = new WebTorrent();
+
+    // Substitua com seu magnet link real
+    const torrentId = 'magnet:?xt=urn:btih:196db467999797674cf2ad4d9c4891f222864835&dn=Pedra%20Filosofal%20-%20Vers%C3%A3o%20Estendida.mp4';
+
+    client.add(torrentId, torrent => {
+      const file = torrent.files.find(file => file.name.endsWith('.mp4'));
+      file.renderTo('#videoPlayer');
+    });
+  </script>
+</body>
+</html>

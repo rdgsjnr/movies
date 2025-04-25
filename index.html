@@ -12,12 +12,16 @@
   <script>
     const client = new WebTorrent();
 
-    // Substitua com seu magnet link real
     const torrentId = 'magnet:?xt=urn:btih:196db467999797674cf2ad4d9c4891f222864835&dn=Pedra%20Filosofal%20-%20Vers%C3%A3o%20Estendida.mp4';
 
     client.add(torrentId, torrent => {
       const file = torrent.files.find(file => file.name.endsWith('.mp4'));
-      file.renderTo('#videoPlayer');
+      if (file) {
+        file.renderTo('#videoPlayer');
+      } else {
+        alert('Nenhum arquivo .mp4 encontrado no torrent!');
+        console.log('Arquivos no torrent:', torrent.files.map(f => f.name));
+      }
     });
   </script>
 </body>

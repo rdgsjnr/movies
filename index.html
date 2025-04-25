@@ -1,28 +1,23 @@
-<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>WebTorrent Player</title>
-</head>
-<body>
-  <h2>Vídeo via P2P</h2>
-  <video id="videoPlayer" controls width="640" height="360"></video>
+  <head>
+    <title>WebTorrent Video Streaming</title>
+    <script src="https://cdn.webtorrent.io/webtorrent.min.js"></script>
+  </head>
+  <body>
+    <h1>Assistir Pedra Filosofal - Versão Estendida</h1>
+    <video id="video" controls></video>
 
-  <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
-  <script>
-    const client = new WebTorrent();
+    <script>
+      const client = new WebTorrent();
+      const video = document.getElementById('video');
 
-    const torrentId = 'magnet:?xt=urn:btih:b8232cfb2f4e4def53b3f29510e9a764a9fd3efe&dn=Pedra+Filosofal+-+Vers%C3%A3o+Estendida.mp4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com';
+      // Link magnético fornecido
+      const magnetURI = 'magnet:?xt=urn:btih:b8232cfb2f4e4def53b3f29510e9a764a9fd3efe&dn=Pedra+Filosofal+-+Vers%C3%A3o+Estendida.mp4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com';
 
-    client.add(torrentId, torrent => {
-      const file = torrent.files.find(file => file.name.endsWith('.mp4'));
-      if (file) {
-        file.renderTo('#videoPlayer');
-      } else {
-        alert('Nenhum .mp4 encontrado no torrent!');
-        console.log('Arquivos no torrent:', torrent.files.map(f => f.name));
-      }
-    });
-  </script>
-</body>
+      client.add(magnetURI, function(torrent) {
+        const file = torrent.files.find(file => file.name.endsWith('.mp4'));
+        file.renderTo(video); // Mostra o vídeo no player HTML5
+      });
+    </script>
+  </body>
 </html>
